@@ -1,5 +1,5 @@
 import { all, call, delay, put, takeEvery } from 'redux-saga/effects'
-import { addCount } from '../counter';
+import { addCount } from '../slices/counter';
 
 export function* incrementAsync() {
   yield delay(1000)

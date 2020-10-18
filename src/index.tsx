@@ -9,6 +9,10 @@ import * as serviceWorker from './serviceWorker';
 const initialState = {};
 const store = configureStore(initialState);
 
+
+console.log({
+initialState:store.getState()
+});
 ReactDOM.render(
   <Provider store={store}>
     <App />

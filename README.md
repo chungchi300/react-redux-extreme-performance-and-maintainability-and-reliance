@@ -1,3 +1,6 @@
+1. listing page(with selector, which trigger loading another set of data)
+2. page for transfer between account
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
