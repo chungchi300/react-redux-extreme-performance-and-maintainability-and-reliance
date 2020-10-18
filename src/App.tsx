@@ -15,6 +15,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { ConnectedCurrentAccount } from "./pages/ConnectedCurrentAccount";
 import { ConnectedTransactionList } from "./pages/ConnectedTransactionList";
+import { ConnectedModalBankTransferForm } from "./pages/ConnectedModalBankTransferForm";
 
 export const incrementAsync = () => ({
   type: "INCREMENT_ASYNC",
@@ -45,7 +46,11 @@ function App() {
             onDecrement={() => decrement(1)}
             onIncrementAsync={() => dispatch(incrementAsync())}
           /> */}
-        <ConnectedCurrentAccount />
+        <div>
+          <ConnectedCurrentAccount />
+          <ConnectedModalBankTransferForm />
+        </div>
+
         <ConnectedTransactionList />
       </header>
     </div>

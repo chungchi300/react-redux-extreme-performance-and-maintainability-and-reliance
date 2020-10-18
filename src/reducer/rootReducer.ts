@@ -6,7 +6,7 @@ import clicksReducer from '../slices/counter';
 import transaction from '../slices/transaction';
 import account from '../slices/account';
 import currentAccount from '../slices/currentAccount';
-
+import modal from '../slices/modal';
 function domain(previousState:any, action:any){
   if(previousState==undefined){
     previousState = {
@@ -84,7 +84,7 @@ function domain(previousState:any, action:any){
     accountById:account(previousState.accountById,action)
   }
 }
-const reducers = { count: clicksReducer,domain:domain,currentAccount };
+const reducers = { count: clicksReducer,domain:domain,currentAccount,modal };
 
 export let rootReducer = combineReducers({
   ...reducers

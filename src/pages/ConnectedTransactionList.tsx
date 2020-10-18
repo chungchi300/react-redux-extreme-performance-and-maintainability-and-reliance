@@ -38,8 +38,12 @@ function TransactionList(props: any) {
   );
 }
 function mapStateToProps(state: RootState) {
-  let transactions = Object.values(state.domain.transactionById).filter(
-    (transaction) => transaction
+  let transactions = Object.values(
+    state.domain.transactionById
+  ).filter((transaction: any) =>
+    state.currentAccount.selectedId
+      ? transaction.accountId == state.currentAccount.selectedId
+      : true
   );
   return {
     accountById: state.domain.accountById,
