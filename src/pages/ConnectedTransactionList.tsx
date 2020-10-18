@@ -30,10 +30,13 @@ function TransactionList(props: any) {
           <TableCell>Account</TableCell>
         </TableRow>
       </TableHead>
-
-      {transactions.map((data: any) => {
-        return <Transaction accountById={accountById} data={data} />;
-      })}
+      <TableBody>
+        {transactions.map((data: any) => {
+          return (
+            <Transaction key={data.id} accountById={accountById} data={data} />
+          );
+        })}
+      </TableBody>
     </Table>
   );
 }

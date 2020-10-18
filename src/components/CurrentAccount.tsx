@@ -30,7 +30,9 @@ export function CurrentAccount({
       <Select labelId="label" value={currentAccountId} onChange={onChange}>
         <MenuItem value={undefined}>All</MenuItem>
         {Object.values(accountById).map((account: any) => (
-          <MenuItem value={account.id}>{account.name}</MenuItem>
+          <MenuItem key={account.id} value={account.id}>
+            {account.name}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>

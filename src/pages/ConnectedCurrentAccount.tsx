@@ -25,7 +25,9 @@ function TransactionList(props: any) {
       onChange={(event: any) => {
         props.setCurrentAccountId(event.target.value);
       }}
-      currentAccountId={props.currentAccount.selectedId}
+      currentAccountId={
+        props.currentAccount.selectedId ? props.currentAccount.selectedId : ""
+      }
       accountById={props.accountById}
     />
   );

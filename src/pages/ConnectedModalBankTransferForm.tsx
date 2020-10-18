@@ -6,16 +6,59 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
+import { makeStyles } from "@material-ui/core/styles";
+
 import TableRow from "@material-ui/core/TableRow";
 import { Transaction } from "../components/Transaction";
 import { connect, useSelector } from "react-redux";
 import { RootState } from "../reducer/rootReducer";
 import { CurrentAccount } from "../components/CurrentAccount";
 import { setCurrentAccountId } from "../slices/currentAccount";
+import Fade from "@material-ui/core/Fade";
+import Backdrop from "@material-ui/core/Backdrop";
+
 import Modal from "@material-ui/core/Modal";
 import { setModal } from "../slices/modal";
+import { Form, Field } from "react-final-form";
+const required = (value: any) => (value ? undefined : "Required");
+const mustBeNumber = (value: number) =>
+  isNaN(value) ? "Must be a number" : undefined;
+const minValue = (min: number) => (value: number) =>
+  isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
+const composeValidators = (...validators: any) => (value: any) =>
+  validators.reduce(
+    (error: any, validator: any) => error || validator(value),
+    undefined
+  );
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  innerWrapper: {
+    background: "white",
+    margin: "30px",
+    padding: "30px",
+    position: "fixed",
+  },
+  fieldError: {
+    color: "red",
+    marginTop: "5px",
+    display: "block",
+    marginBottom: "5px",
+  },
+}));
 
 function ModalBankTransferForm(props: any) {
+  const classes = useStyles();
   return (
     <div>
       <button
@@ -27,12 +70,82 @@ function ModalBankTransferForm(props: any) {
         Transfer Money To Other Account
       </button>
       <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
         open={props.open}
         onClose={() => {
           props.toggleModal(props.open);
         }}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
       >
-        <div>Modal Content</div>
+        <Fade in={props.open}>
+          <div className={classes.innerWrapper}>
+            <Form
+              onSubmit={(values) => {
+                console.log({ values });
+              }}
+              render={({
+                handleSubmit,
+                form,
+                submitting,
+                pristine,
+                values,
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <Field
+                    name="amount"
+                    validate={composeValidators(
+                      required,
+                      mustBeNumber,
+                      minValue(0)
+                    )}
+                  >
+                    {({ input, meta }) => (
+                      <div>
+                        <label>Amount</label>
+                        <input {...input} type="text" placeholder="Amount" />
+                        {meta.error && meta.touched && (
+                          <span className={classes.fieldError}>
+                            {meta.error}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </Field>
+
+                  <Field name="targetAccountId" component="select">
+                    {props.accounts.map((account: any) => {
+                      return (
+                        <option key={account.id} value={account.id}>
+                          {account.name}
+                        </option>
+                      );
+                    })}
+                  </Field>
+                  <div className="buttons">
+                    <button type="submit" disabled={submitting}>
+                      Submit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        props.toggleModal(props.open);
+                      }}
+                      disabled={submitting || pristine}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              )}
+            />
+          </div>
+        </Fade>
       </Modal>
     </div>
   );
@@ -41,6 +154,7 @@ function ModalBankTransferForm(props: any) {
 function mapStateToProps(state: RootState) {
   return {
     open: state.modal.name == "bankTransfer",
+    accounts: Object.values(state.domain.accountById),
   };
 }
 
