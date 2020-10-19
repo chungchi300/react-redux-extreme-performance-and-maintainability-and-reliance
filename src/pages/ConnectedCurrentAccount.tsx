@@ -19,7 +19,6 @@ type Props = {
 };
 
 function TransactionList(props: any) {
-  const domain = useSelector((state: RootState) => state.domain);
   return (
     <CurrentAccount
       onChange={(event: any) => {

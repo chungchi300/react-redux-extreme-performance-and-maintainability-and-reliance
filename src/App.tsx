@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "./reducer/rootReducer";
 import logo from "./logo.svg";
@@ -23,6 +23,10 @@ export const incrementAsync = () => ({
 
 function App() {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: "INIT_LOAD_START" });
+  }, []);
+
   const { clicks } = useSelector((state: RootState) => state.count);
   const domain = useSelector((state: RootState) => state.domain);
   const currentAccount = useSelector(

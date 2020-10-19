@@ -10,6 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { Transaction } from "../components/Transaction";
 import { connect, useSelector } from "react-redux";
 import { RootState } from "../reducer/rootReducer";
+import { getLoading } from "../helpers/network";
 
 type Props = {
   data: any;
@@ -18,6 +19,9 @@ type Props = {
 
 function TransactionList(props: any) {
   const { transactions, accountById } = props;
+  let loading = getLoading(props.network, ["transaction", "account"]);
+  if (loading) return loading;
+
   return (
     <Table>
       <TableHead>
@@ -48,9 +52,11 @@ function mapStateToProps(state: RootState) {
       ? transaction.accountId == state.currentAccount.selectedId
       : true
   );
+
   return {
     accountById: state.domain.accountById,
     transactions: transactions,
+    network: state.network,
   };
 }
 

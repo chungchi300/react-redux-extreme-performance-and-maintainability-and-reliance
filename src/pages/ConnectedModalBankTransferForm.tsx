@@ -87,7 +87,7 @@ function ModalBankTransferForm(props: any) {
           <div className={classes.innerWrapper}>
             <Form
               onSubmit={(values) => {
-                console.log({ values });
+                props.submitTransferForm(values);
               }}
               render={({
                 handleSubmit,
@@ -117,8 +117,11 @@ function ModalBankTransferForm(props: any) {
                       </div>
                     )}
                   </Field>
-
-                  <Field name="targetAccountId" component="select">
+                  From
+                  <Field name="sourceAccountId" component="select">
+                    <option key={""} value={""}>
+                      Select
+                    </option>
                     {props.accounts.map((account: any) => {
                       return (
                         <option key={account.id} value={account.id}>
@@ -127,6 +130,24 @@ function ModalBankTransferForm(props: any) {
                       );
                     })}
                   </Field>
+                  {values.sourceAccountId ? (
+                    <div>
+                      to
+                      <Field name="targetAccountId" component="select">
+                        {props.accounts.map((account: any) => {
+                          return (
+                            <option
+                              disabled={values.sourceAccountId == account.id}
+                              key={account.id}
+                              value={account.id}
+                            >
+                              {account.name}
+                            </option>
+                          );
+                        })}
+                      </Field>
+                    </div>
+                  ) : null}
                   <div className="buttons">
                     <button type="submit" disabled={submitting}>
                       Submit
@@ -166,6 +187,9 @@ function mapDispatchToProps(dispatch: any) {
       } else {
         dispatch(setModal({ name: "bankTransfer" }));
       }
+    },
+    submitTransferForm: (values: any) => {
+      dispatch({ name: "submitBankTransfer", values });
     },
   };
 }

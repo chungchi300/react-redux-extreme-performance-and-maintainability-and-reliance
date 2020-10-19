@@ -7,7 +7,7 @@ type Account = {
   name:string;
 };
 type AccountState = {
-  accountById: {[id: string]: Account}
+  accountById: any
 };
 
 let initialState: AccountState = {
@@ -18,14 +18,14 @@ const slice = createSlice({
   name: 'account',
   initialState,
   reducers: {
-    setData(state, action:any) {
-      state.accountById = {...state.accountById,... _.keyBy(action.payload.data, "id")}; 
+    ["fetch/fulfilled"](state,action:any){
+      return  {...state.accountById,... _.keyBy(action.payload  , "id")}; 
     },
   }
 })
 
 export const {
-  setData,
+  ["fetch/fulfilled"]:setAccountData,
  
 } = slice.actions
 
