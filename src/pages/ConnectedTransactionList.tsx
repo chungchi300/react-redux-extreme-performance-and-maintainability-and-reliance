@@ -46,7 +46,7 @@ function TransactionList(props: any) {
 }
 function mapStateToProps(state: RootState) {
   let transactions = Object.values(
-    state.domain.transactionById
+    state.transaction.transactionById
   ).filter((transaction: any) =>
     state.currentAccount.selectedId
       ? transaction.accountId == state.currentAccount.selectedId
@@ -54,7 +54,7 @@ function mapStateToProps(state: RootState) {
   );
 
   return {
-    accountById: state.domain.accountById,
+    accountById: state.account.accountById,
     transactions: transactions,
     network: state.network,
   };

@@ -1,75 +1,98 @@
-import { all, call, delay, put, takeEvery } from "redux-saga/effects";
+import { all, call, delay, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { setAccountData } from "../slices/account";
 import { addCount } from "../slices/counter";
-import { setTransactionData } from "../slices/transaction";
+import { addTransactionData, setTransactionData } from "../slices/transaction";
+import { createSliceSaga, SagaType } from "redux-toolkit-saga";
+import { PayloadAction } from "@reduxjs/toolkit";
 
-export function* incrementAsync() {
-  yield delay(1000);
-  yield put(addCount(1));
-}
+export const networkSaga = createSliceSaga({
+  name: "network",
 
-export function* watchIncrementAsync() {
-  yield takeEvery("INCREMENT_ASYNC", incrementAsync);
-}
+  caseSagas: {
+    *createTransaction (action: PayloadAction<string>) {
+      console.log('action clicked');
+  
+
+      // yield put({ type: "transaction/create/fetch/pending" });
+      // yield delay(1000);
+      
+      yield put(addTransactionData( {
+        id: 't7',
+        action: "deposit",
+        amount: 1000,
+        timestamp: 10001000,
+        currency: "HKD",
+        description: "First Deposit",
+        accountId: 'a2',
+      },));
+      console.log('netxt')
+   
+    },
+
+  },
+  sagaType: SagaType.Watch,
+});
+
+
 
 export function* loadTransaction() {
   yield put({ type: "transaction/fetch/pending" });
   yield delay(1000);
   yield put(
     setTransactionData({
-      1: {
-        id: 1,
+      't1': {
+        id: 't1',
         action: "deposit",
         amount: 1000,
         timestamp: 10001000,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 1,
+        accountId: 'a1',
       },
-      2: {
-        id: 2,
+      't2': {
+        id: 't2',
         action: "deposit",
         amount: 1000,
         timestamp: 10001000,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 1,
+        accountId: 'a1',
       },
-      3: {
-        id: 3,
+      't3': {
+        id: 't3',
         action: "deposit",
         amount: 1000,
         timestamp: 10001000,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 1,
+        accountId: 'a1',
       },
-      4: {
-        id: 4,
+      't4': {
+        id: 't4',
         action: "deposit",
         amount: 1000,
         timestamp: 10001000,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 1,
+        accountId: 'a1',
       },
-      5: {
-        id: 5,
+      't5': {
+        id: 't5',
         action: "deposit",
         amount: 1000,
         timestamp: 10001000,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 2,
+        accountId: 'a2',
       },
-      6: {
-        id: 6,
+      't6': {
+        id: 't6',
         action: "deposit",
         amount: 1000,
         timestamp: 10001000,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 2,
+        accountId: 'a2',
       },
     })
   );
@@ -84,12 +107,12 @@ export function* loadAccount() {
   yield delay(1000);
   yield put(
     setAccountData({
-      1: {
-        id: 1,
+      'a1': {
+        id: 'a1',
         name: "saving",
       },
-      2: {
-        id: 2,
+      'a2': {
+        id: 'a2',
         name: "investment",
       },
     })
@@ -97,19 +120,20 @@ export function* loadAccount() {
 }
 
 export function* watchLoadAccount() {
-  yield takeEvery("LOAD_ACCOUNT_START", loadTransaction);
+  yield takeLatest("LOAD_ACCOUNT_START", loadTransaction);
 }
 export function* initLoad() {
   yield call(loadAccount);
   yield call(loadTransaction);
 }
 export function* watchInitLoad() {
-  yield takeEvery("INIT_LOAD_START", initLoad);
+  yield takeLatest("INIT_LOAD_START", initLoad);
 }
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield all([
-    call(watchIncrementAsync),
+    call(networkSaga.saga),
+    
     call(watchLoadTransactionData),
     call(watchLoadAccount),
     call(watchInitLoad),

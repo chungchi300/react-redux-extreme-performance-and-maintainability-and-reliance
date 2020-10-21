@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import _ from "lodash";
 
 type Account = {
-  id:number;
+  id:string;
   name:string;
 };
 type AccountState = {
@@ -19,7 +19,8 @@ const slice = createSlice({
   initialState,
   reducers: {
     ["fetch/fulfilled"](state,action:any){
-      return  {...state.accountById,... _.keyBy(action.payload  , "id")}; 
+      state.accountById = {...state.accountById,... _.keyBy(action.payload  , "id")}; 
+   
     },
   }
 })

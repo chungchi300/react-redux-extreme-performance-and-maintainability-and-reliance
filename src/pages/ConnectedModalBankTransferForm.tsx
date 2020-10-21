@@ -20,6 +20,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Modal from "@material-ui/core/Modal";
 import { setModal } from "../slices/modal";
 import { Form, Field } from "react-final-form";
+import { networkSaga } from "../sagas";
 const required = (value: any) => (value ? undefined : "Required");
 const mustBeNumber = (value: number) =>
   isNaN(value) ? "Must be a number" : undefined;
@@ -88,6 +89,7 @@ function ModalBankTransferForm(props: any) {
             <Form
               onSubmit={(values) => {
                 props.submitTransferForm(values);
+            
               }}
               render={({
                 handleSubmit,
@@ -173,9 +175,10 @@ function ModalBankTransferForm(props: any) {
 }
 
 function mapStateToProps(state: RootState) {
+  console.log({state});
   return {
     open: state.modal.name == "bankTransfer",
-    accounts: Object.values(state.domain.accountById),
+    accounts: Object.values(state.account.accountById),
   };
 }
 
@@ -189,7 +192,7 @@ function mapDispatchToProps(dispatch: any) {
       }
     },
     submitTransferForm: (values: any) => {
-      dispatch({ name: "submitBankTransfer", values });
+      dispatch(networkSaga.actions.createTransaction("testing"));
     },
   };
 }

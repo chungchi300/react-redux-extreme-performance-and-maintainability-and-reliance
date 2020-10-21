@@ -34,8 +34,8 @@ function TransactionList(props: any) {
 
 function mapStateToProps(state: RootState) {
   return {
-    transactionById: state.domain.transactionById,
-    accountById: state.domain.accountById,
+    transactionById: state.transaction.transactionById,
+    accountById: state.account.accountById,
     currentAccount: state.currentAccount,
   };
 }

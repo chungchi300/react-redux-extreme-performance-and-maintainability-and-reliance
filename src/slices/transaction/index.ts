@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import _ from "lodash";
 
 export type TransactionData = {
-  id:number;
+  id:string;
   action:string;
   amount:string;
   timestamp:number;
   currency:string;
   description:string;
-  accountId:number;
+  accountId:string;
 };
 type TransactionState = {
   transactionById: any
@@ -24,10 +24,11 @@ const slice = createSlice({
   initialState,
   reducers: {
     ["fetch/fulfilled"](state,action:any){
-      return  {...state.transactionById,... _.keyBy(action.payload, "id")}; 
+      state.transactionById = {...state.transactionById,... _.keyBy(action.payload  , "id")}; 
+
     },
     ["create/fetch/fulfilled"](state,action:any){
-      return  {...state.transactionById,[action.payload.id]:action.payload} ; 
+      state.transactionById[action.payload.id] = action.payload;
     }
   }
 })
