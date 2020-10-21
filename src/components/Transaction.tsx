@@ -11,7 +11,7 @@ import { AccountData } from "../slices/account";
 
 type Props = {
   data: TransactionData;
-  accountById:  {[id: string]:AccountData};
+  accountById: { [id: string]: AccountData };
 };
 
 export function Transaction({ data, accountById }: Props) {

@@ -20,14 +20,19 @@ import Modal from "@material-ui/core/Modal";
 import { setModal } from "../slices/modal";
 import { Form, Field } from "react-final-form";
 import { networkSaga } from "../sagas";
-import { required,mustBeNumber,minValue,composeValidators } from "../helpers/validator";
-import {useStyles} from '../components/Modal';
+import {
+  required,
+  mustBeNumber,
+  minValue,
+  composeValidators,
+} from "../helpers/validator";
+import { useStyles } from "../components/Modal";
 import { AccountData } from "../slices/account";
 type Props = {
-  toggleModal: (event:any)=> any;
-  submitTransferForm:(event:any)=> any;
+  toggleModal: (event: any) => any;
+  submitTransferForm: (event: any) => any;
   accounts: AccountData[];
-  open:boolean;
+  open: boolean;
 };
 
 function ModalBankTransferForm(props: Props) {
@@ -61,7 +66,6 @@ function ModalBankTransferForm(props: Props) {
             <Form
               onSubmit={(values) => {
                 props.submitTransferForm(values);
-            
               }}
               render={({
                 handleSubmit,
@@ -92,7 +96,7 @@ function ModalBankTransferForm(props: Props) {
                     )}
                   </Field>
                   From
-                  <Field   name="sourceAccountId" component="select">
+                  <Field name="sourceAccountId" component="select">
                     <option key={""} value={""}>
                       Select
                     </option>
@@ -107,7 +111,7 @@ function ModalBankTransferForm(props: Props) {
                   {values.sourceAccountId ? (
                     <div>
                       to
-                      <Field  name="targetAccountId" component="select">
+                      <Field name="targetAccountId" component="select">
                         {props.accounts.map((account: any) => {
                           return (
                             <option
@@ -147,7 +151,7 @@ function ModalBankTransferForm(props: Props) {
 }
 
 function mapStateToProps(state: RootState) {
-  console.log({state});
+  console.log({ state });
   return {
     open: state.modal.name == "bankTransfer",
     accounts: Object.values(state.account.accountById),
@@ -164,9 +168,7 @@ function mapDispatchToProps(dispatch: any) {
       }
     },
     submitTransferForm: (values: any) => {
-      
       dispatch(networkSaga.actions.createTransaction("testing"));
-   
     },
   };
 }

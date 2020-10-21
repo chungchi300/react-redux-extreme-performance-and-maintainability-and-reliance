@@ -1,41 +1,43 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import _ from "lodash";
 
 export type TransactionData = {
-  id:string;
-  action:string;
-  amount:string;
-  timestamp:number;
-  currency:string;
-  description:string;
-  accountId:string;
+  id: string;
+  action: string;
+  amount: string;
+  timestamp: number;
+  currency: string;
+  description: string;
+  accountId: string;
 };
 export type TransactionState = {
-  transactionById:  {[id: string]:TransactionData}
+  transactionById: { [id: string]: TransactionData };
 };
 
 let initialState: TransactionState = {
   transactionById: {},
-}
+};
 
 const slice = createSlice({
-  name: 'transaction',
+  name: "transaction",
   initialState,
   reducers: {
-    ["fetch/fulfilled"](state,action:any){
-      state.transactionById = {...state.transactionById,... _.keyBy(action.payload  , "id")}; 
-
+    ["fetch/fulfilled"](state, action: any) {
+      state.transactionById = {
+        ...state.transactionById,
+        ..._.keyBy(action.payload, "id"),
+      };
     },
-    ["create/fetch/fulfilled"](state,action:any){
+    ["create/fetch/fulfilled"](state, action: any) {
       state.transactionById[action.payload.id] = action.payload;
-    }
-  }
-})
+    },
+  },
+});
 
 export const {
   ["fetch/fulfilled"]: setTransactionData,
   ["create/fetch/fulfilled"]: addTransactionData,
-} = slice.actions
+} = slice.actions;
 
-export default slice.reducer
+export default slice.reducer;

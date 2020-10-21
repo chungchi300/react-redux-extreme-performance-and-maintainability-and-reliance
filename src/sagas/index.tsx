@@ -1,4 +1,11 @@
-import { all, call, delay, put, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+  all,
+  call,
+  delay,
+  put,
+  takeEvery,
+  takeLatest,
+} from "redux-saga/effects";
 import { setAccountData } from "../slices/account";
 
 import { addTransactionData, setTransactionData } from "../slices/transaction";
@@ -10,89 +17,86 @@ export const networkSaga = createSliceSaga({
   name: "network",
 
   caseSagas: {
-    *createTransaction (action: PayloadAction<string>) {
-    
-
+    *createTransaction(action: PayloadAction<string>) {
       yield put({ type: "transaction/create/fetch/pending" });
       yield delay(1000);
-      
-      yield put(addTransactionData( {
-        id: 't7',
-        action: "deposit",
-        amount: 1000,
-        timestamp: 1603247168480,
-        currency: "HKD",
-        description: "First Deposit",
-        accountId: 'a2',
-      },));
+
+      yield put(
+        addTransactionData({
+          id: "t7",
+          action: "deposit",
+          amount: 1000,
+          timestamp: 1603247168480,
+          currency: "HKD",
+          description: "First Deposit",
+          accountId: "a2",
+        })
+      );
       // yield put({ type: "transaction/create/fetch/fulfilled" });
       yield put(setModal({ name: undefined, props: null }));
     },
-
   },
   sagaType: SagaType.Watch,
 });
-
-
 
 export function* loadTransaction() {
   yield put({ type: "transaction/fetch/pending" });
   yield delay(1000);
   yield put(
     setTransactionData({
-      't1': {
-        id: 't1',
+      t1: {
+        id: "t1",
         action: "deposit",
         amount: 1000,
         timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 'a1',
+        accountId: "a1",
       },
-      't2': {
-        id: 't2',
+      t2: {
+        id: "t2",
         action: "deposit",
         amount: 1000,
         timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 'a1',
+        accountId: "a1",
       },
-      't3': {
-        id: 't3',
+      t3: {
+        id: "t3",
         action: "deposit",
         amount: 1000,
         timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 'a1',
+        accountId: "a1",
       },
-      't4': {
-        id: 't4',
+      t4: {
+        id: "t4",
         action: "deposit",
         amount: 1000,
         timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 'a1',
+        accountId: "a1",
       },
-      't5': {
-        id: 't5',
+      t5: {
+        id: "t5",
         action: "deposit",
         amount: 1000,
         timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 'a2',
+        accountId: "a2",
       },
-      't6': {
-        id: 't6',
+      t6: {
+        id: "t6",
         action: "deposit",
         amount: 1000,
         timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
-        accountId: 'a2',
+        accountId: "a2",
       },
     })
   );
@@ -107,12 +111,12 @@ export function* loadAccount() {
   yield delay(1000);
   yield put(
     setAccountData({
-      'a1': {
-        id: 'a1',
+      a1: {
+        id: "a1",
         name: "saving",
       },
-      'a2': {
-        id: 'a2',
+      a2: {
+        id: "a2",
         name: "investment",
       },
     })
@@ -133,7 +137,7 @@ export function* watchInitLoad() {
 export default function* rootSaga() {
   yield all([
     call(networkSaga.saga),
-    
+
     call(watchLoadTransactionData),
     call(watchLoadAccount),
     call(watchInitLoad),

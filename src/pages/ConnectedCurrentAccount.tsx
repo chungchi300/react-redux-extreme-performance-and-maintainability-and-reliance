@@ -11,13 +11,16 @@ import { Transaction } from "../components/Transaction";
 import { connect, useSelector } from "react-redux";
 import { RootState } from "../reducer/rootReducer";
 import { CurrentAccount } from "../components/CurrentAccount";
-import { CurrentAccountState, setCurrentAccountId } from "../slices/currentAccount";
+import {
+  CurrentAccountState,
+  setCurrentAccountId,
+} from "../slices/currentAccount";
 import { AccountData } from "../slices/account";
 
 type Props = {
   currentAccount: CurrentAccountState;
-  setCurrentAccountId: (event:any)=> any;
-  accountById: {[id: string]:AccountData};
+  setCurrentAccountId: (event: any) => any;
+  accountById: { [id: string]: AccountData };
 };
 
 function TransactionList(props: Props) {

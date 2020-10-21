@@ -1,18 +1,16 @@
+import { combineReducers } from "@reduxjs/toolkit";
 
-import { combineReducers } from '@reduxjs/toolkit'
-import { connectRouter } from 'connected-react-router'
+import transaction from "../slices/transaction";
+import account from "../slices/account";
+import currentAccount from "../slices/currentAccount";
+import modal from "../slices/modal";
+import network from "./networkReducer";
 
-import transaction from '../slices/transaction';
-import account from '../slices/account';
-import currentAccount from '../slices/currentAccount';
-import modal from '../slices/modal';
-import network from './networkReducer';
-
-const reducers = {currentAccount,modal,transaction,account ,network};
+const reducers = { currentAccount, modal, transaction, account, network };
 
 export let rootReducer = combineReducers({
-  ...reducers
-})
+  ...reducers,
+});
 
 export default function createReducer(injectedReducers = {}) {
   rootReducer = combineReducers({
@@ -23,4 +21,4 @@ export default function createReducer(injectedReducers = {}) {
   return rootReducer;
 }
 
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;

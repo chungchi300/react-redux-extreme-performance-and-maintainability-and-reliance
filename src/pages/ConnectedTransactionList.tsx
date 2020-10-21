@@ -15,9 +15,9 @@ import { AccountData } from "../slices/account";
 import { LoadingState } from "../reducer/networkReducer";
 
 type Props = {
-  network:LoadingState,
+  network: LoadingState;
   transactions: TransactionData[];
-  accountById: {[id: string]:AccountData};
+  accountById: { [id: string]: AccountData };
 };
 
 function TransactionList(props: Props) {

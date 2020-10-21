@@ -9,7 +9,7 @@ import FormControl from "@material-ui/core/FormControl";
 import { AccountData } from "../slices/account";
 type Props = {
   currentAccountId: string;
-  accountById: {[id: string]:AccountData};
+  accountById: { [id: string]: AccountData };
   onChange: any;
 };
 
