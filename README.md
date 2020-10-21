@@ -1,47 +1,30 @@
-1. listing page(with selector, which trigger loading another set of data)
-2. page for transfer between account
+# Installation
+1. npm i&&npm run start
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Technical Debt/Task Remain
+## Organization
+1. `src/pages/ConnectedModalBankTransferForm` can be more separate `smart/dummy` component
+2. Typing of actions payload
+3. transaction&account can be grouped into `domain` state
+4. selector pattern in `mapstatsToprops` to further push performance
+5. entire network layer can be simplified by [redux-request]`https://github.com/klis87/redux-requests`
 
-## Available Scripts
+## Validation
+The submit form should do the async validation
 
-In the project directory, you can run:
+## Testing
+1. More Unit Test on other elements, now only cover `src/currentAccount/index.js` as a `reducer testing example` and `src/sagas network saga` as a `side effect testing`
+2. `Snapshots` testing
 
-### `yarn start`
+## File Size
+1. code split for `components` using `https://reactjs.org/docs/code-splitting.html`
+2. the importing of lodash can be more precise like `lodash/keyBy` to use the `treeshaking` for minimal file size with webpack 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Optional
+Absolute import instead of relative import to avoid `path hell`, but sacriface the portability of code(unless install some path plugin when export)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Reliable Build
+switch to yarn and use yarn offline mirror which create a bunch of `.tar` of your package which ensure **reliable build&&avoid attack via npm package**, but the **disadvantage** is bigger package size.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Multiple package development
+Can move helper function&reducers/slices to `common package` & use `lerna` if there is multiple `project`.

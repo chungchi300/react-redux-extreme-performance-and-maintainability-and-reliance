@@ -2,14 +2,13 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import { connectRouter } from 'connected-react-router'
 
-import clicksReducer from '../slices/counter';
 import transaction from '../slices/transaction';
 import account from '../slices/account';
 import currentAccount from '../slices/currentAccount';
 import modal from '../slices/modal';
 import network from './networkReducer';
 
-const reducers = { count: clicksReducer,currentAccount,modal,transaction,account ,network};
+const reducers = {currentAccount,modal,transaction,account ,network};
 
 export let rootReducer = combineReducers({
   ...reducers

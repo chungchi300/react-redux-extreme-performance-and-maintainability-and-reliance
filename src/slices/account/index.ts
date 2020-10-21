@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import _ from "lodash";
 
-type Account = {
+export type AccountData = {
   id:string;
   name:string;
 };
-type AccountState = {
-  accountById: any
+export type AccountState = {
+  accountById: {[id: string]:AccountData}
 };
 
 let initialState: AccountState = {

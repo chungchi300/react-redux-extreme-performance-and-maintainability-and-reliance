@@ -11,8 +11,8 @@ export type TransactionData = {
   description:string;
   accountId:string;
 };
-type TransactionState = {
-  transactionById: any
+export type TransactionState = {
+  transactionById:  {[id: string]:TransactionData}
 };
 
 let initialState: TransactionState = {

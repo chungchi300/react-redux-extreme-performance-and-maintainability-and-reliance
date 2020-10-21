@@ -6,7 +6,6 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import { makeStyles } from "@material-ui/core/styles";
 
 import TableRow from "@material-ui/core/TableRow";
 import { Transaction } from "../components/Transaction";
@@ -21,44 +20,17 @@ import Modal from "@material-ui/core/Modal";
 import { setModal } from "../slices/modal";
 import { Form, Field } from "react-final-form";
 import { networkSaga } from "../sagas";
-const required = (value: any) => (value ? undefined : "Required");
-const mustBeNumber = (value: number) =>
-  isNaN(value) ? "Must be a number" : undefined;
-const minValue = (min: number) => (value: number) =>
-  isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
-const composeValidators = (...validators: any) => (value: any) =>
-  validators.reduce(
-    (error: any, validator: any) => error || validator(value),
-    undefined
-  );
+import { required,mustBeNumber,minValue,composeValidators } from "../helpers/validator";
+import {useStyles} from '../components/Modal';
+import { AccountData } from "../slices/account";
+type Props = {
+  toggleModal: (event:any)=> any;
+  submitTransferForm:(event:any)=> any;
+  accounts: AccountData[];
+  open:boolean;
+};
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  innerWrapper: {
-    background: "white",
-    margin: "30px",
-    padding: "30px",
-    position: "fixed",
-  },
-  fieldError: {
-    color: "red",
-    marginTop: "5px",
-    display: "block",
-    marginBottom: "5px",
-  },
-}));
-
-function ModalBankTransferForm(props: any) {
+function ModalBankTransferForm(props: Props) {
   const classes = useStyles();
   return (
     <div>
@@ -120,7 +92,7 @@ function ModalBankTransferForm(props: any) {
                     )}
                   </Field>
                   From
-                  <Field name="sourceAccountId" component="select">
+                  <Field   name="sourceAccountId" component="select">
                     <option key={""} value={""}>
                       Select
                     </option>
@@ -135,7 +107,7 @@ function ModalBankTransferForm(props: any) {
                   {values.sourceAccountId ? (
                     <div>
                       to
-                      <Field name="targetAccountId" component="select">
+                      <Field  name="targetAccountId" component="select">
                         {props.accounts.map((account: any) => {
                           return (
                             <option
@@ -192,7 +164,9 @@ function mapDispatchToProps(dispatch: any) {
       }
     },
     submitTransferForm: (values: any) => {
+      
       dispatch(networkSaga.actions.createTransaction("testing"));
+   
     },
   };
 }

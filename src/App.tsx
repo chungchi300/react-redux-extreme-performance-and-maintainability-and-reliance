@@ -20,13 +20,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        {/* <Counter
-            value={clicks}
-            onIncrement={() => increment(1)}
-            onDecrement={() => decrement(1)}
-            onIncrementAsync={() => dispatch(incrementAsync())}
-          /> */}
+        
         <div>
           <ConnectedCurrentAccount />
           <ConnectedModalBankTransferForm />

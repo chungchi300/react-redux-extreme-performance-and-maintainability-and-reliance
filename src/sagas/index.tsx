@@ -1,32 +1,32 @@
 import { all, call, delay, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { setAccountData } from "../slices/account";
-import { addCount } from "../slices/counter";
+
 import { addTransactionData, setTransactionData } from "../slices/transaction";
 import { createSliceSaga, SagaType } from "redux-toolkit-saga";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { setModal } from "../slices/modal";
 
 export const networkSaga = createSliceSaga({
   name: "network",
 
   caseSagas: {
     *createTransaction (action: PayloadAction<string>) {
-      console.log('action clicked');
-  
+    
 
-      // yield put({ type: "transaction/create/fetch/pending" });
-      // yield delay(1000);
+      yield put({ type: "transaction/create/fetch/pending" });
+      yield delay(1000);
       
       yield put(addTransactionData( {
         id: 't7',
         action: "deposit",
         amount: 1000,
-        timestamp: 10001000,
+        timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
         accountId: 'a2',
       },));
-      console.log('netxt')
-   
+      // yield put({ type: "transaction/create/fetch/fulfilled" });
+      yield put(setModal({ name: undefined, props: null }));
     },
 
   },
@@ -44,7 +44,7 @@ export function* loadTransaction() {
         id: 't1',
         action: "deposit",
         amount: 1000,
-        timestamp: 10001000,
+        timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
         accountId: 'a1',
@@ -53,7 +53,7 @@ export function* loadTransaction() {
         id: 't2',
         action: "deposit",
         amount: 1000,
-        timestamp: 10001000,
+        timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
         accountId: 'a1',
@@ -62,7 +62,7 @@ export function* loadTransaction() {
         id: 't3',
         action: "deposit",
         amount: 1000,
-        timestamp: 10001000,
+        timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
         accountId: 'a1',
@@ -71,7 +71,7 @@ export function* loadTransaction() {
         id: 't4',
         action: "deposit",
         amount: 1000,
-        timestamp: 10001000,
+        timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
         accountId: 'a1',
@@ -80,7 +80,7 @@ export function* loadTransaction() {
         id: 't5',
         action: "deposit",
         amount: 1000,
-        timestamp: 10001000,
+        timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
         accountId: 'a2',
@@ -89,7 +89,7 @@ export function* loadTransaction() {
         id: 't6',
         action: "deposit",
         amount: 1000,
-        timestamp: 10001000,
+        timestamp: 1603247168480,
         currency: "HKD",
         description: "First Deposit",
         accountId: 'a2',

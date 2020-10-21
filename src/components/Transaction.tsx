@@ -7,10 +7,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { AccountData } from "../slices/account";
 
 type Props = {
-  data: any;
-  accountById: any;
+  data: TransactionData;
+  accountById:  {[id: string]:AccountData};
 };
 
 export function Transaction({ data, accountById }: Props) {

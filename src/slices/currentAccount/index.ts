@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import _ from "lodash";
 
-type CurrentAccountState = {
-  selectedId:number | null | undefined;
+export type CurrentAccountState = {
+  selectedId:string | null | undefined;
 };
 
 let initialState: CurrentAccountState = {

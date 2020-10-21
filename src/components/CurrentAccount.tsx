@@ -6,9 +6,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Select from "@material-ui/core/Select";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
+import { AccountData } from "../slices/account";
 type Props = {
-  currentAccountId: any;
-  accountById: any;
+  currentAccountId: string;
+  accountById: {[id: string]:AccountData};
   onChange: any;
 };
 
@@ -29,7 +30,7 @@ export function CurrentAccount({
       <InputLabel id="label">Filter By Account Type</InputLabel>
       <Select labelId="label" value={currentAccountId} onChange={onChange}>
         <MenuItem value={undefined}>All</MenuItem>
-        {Object.values(accountById).map((account: any) => (
+        {Object.values(accountById).map((account: AccountData) => (
           <MenuItem key={account.id} value={account.id}>
             {account.name}
           </MenuItem>

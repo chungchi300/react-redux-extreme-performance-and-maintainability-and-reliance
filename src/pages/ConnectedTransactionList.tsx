@@ -11,13 +11,16 @@ import { Transaction } from "../components/Transaction";
 import { connect, useSelector } from "react-redux";
 import { RootState } from "../reducer/rootReducer";
 import { getLoading } from "../helpers/network";
+import { AccountData } from "../slices/account";
+import { LoadingState } from "../reducer/networkReducer";
 
 type Props = {
-  data: any;
-  accountById: any;
+  network:LoadingState,
+  transactions: TransactionData[];
+  accountById: {[id: string]:AccountData};
 };
 
-function TransactionList(props: any) {
+function TransactionList(props: Props) {
   const { transactions, accountById } = props;
   let loading = getLoading(props.network, ["transaction", "account"]);
   if (loading) return loading;
