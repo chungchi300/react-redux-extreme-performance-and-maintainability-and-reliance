@@ -13,14 +13,17 @@ type Props = {
   data: TransactionData;
   accountById: { [id: string]: AccountData };
 };
-
+var objectPoolDate = new Date();
 export function Transaction({ data, accountById }: Props) {
+  objectPoolDate.setTime(data.timestamp);
+
   return (
     <TableRow key={data.id}>
       <TableCell>{data.amount}</TableCell>
       <TableCell>{data.currency}</TableCell>
       <TableCell>{data.action}</TableCell>
-      <TableCell>{data.timestamp}</TableCell>
+
+      <TableCell>{objectPoolDate.toTimeString()}</TableCell>
       <TableCell>{data.description}</TableCell>
       <TableCell>{accountById[data.accountId].name} </TableCell>
     </TableRow>

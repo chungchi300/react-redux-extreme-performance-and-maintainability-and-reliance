@@ -57,7 +57,7 @@ export function* loadTransaction() {
         id: "t2",
         action: "deposit",
         amount: 1000,
-        timestamp: 1603247168480,
+        timestamp: 1603247368480,
         currency: "HKD",
         description: "First Deposit",
         accountId: "a1",
