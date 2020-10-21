@@ -13,7 +13,7 @@
 The submit form should do the async validation
 
 ## Testing
-1. More Unit Test on other elements, now only cover `src/currentAccount/index.js` as a `reducer testing example` and `src/sagas network saga` as a `side effect testing`
+1. More Unit Test on other elements, now only cover `src/currentAccount/index.js` as a `reducer testing example` and `src/sagas loadTransaction saga` as a `side effect testing example`
 2. `Snapshots` testing
 
 ## File Size

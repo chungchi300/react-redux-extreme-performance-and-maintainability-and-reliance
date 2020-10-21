@@ -1,30 +1,25 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import _ from "lodash";
 
 export type CurrentAccountState = {
-  selectedId:string | null | undefined;
+  selectedId: string | null | undefined;
 };
 
 let initialState: CurrentAccountState = {
-  selectedId:undefined
-}
+  selectedId: undefined,
+};
 
 const slice = createSlice({
-  name: 'currentAccount',
+  name: "currentAccount",
   initialState,
   reducers: {
-    setCurrentAccountId(state, action:any) {
-      return {
-        selectedId:action.payload
-      }
+    setCurrentAccountId(state, action: any) {
+      state.selectedId = action.payload;
     },
-  }
-})
+  },
+});
 
-export const {
-  setCurrentAccountId,
- 
-} = slice.actions
+export const { setCurrentAccountId } = slice.actions;
 
-export default slice.reducer
+export default slice.reducer;
