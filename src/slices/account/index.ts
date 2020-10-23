@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { ByIdType } from "../../helpers/type";
 import _ from "lodash";
 
 export type AccountData = {
   id: string;
   name: string;
 };
+
 export type AccountState = {
-  accountById: { [id: string]: AccountData };
+  accountById: ByIdType<AccountData>;
 };
 
 let initialState: AccountState = {
@@ -18,7 +19,7 @@ const slice = createSlice({
   name: "account",
   initialState,
   reducers: {
-    ["fetch/fulfilled"](state, action: any) {
+    "fetch/fulfilled"(state, action: PayloadAction<ByIdType<AccountData>>) {
       state.accountById = {
         ...state.accountById,
         ..._.keyBy(action.payload, "id"),
@@ -27,6 +28,6 @@ const slice = createSlice({
   },
 });
 
-export const { ["fetch/fulfilled"]: setAccountData } = slice.actions;
+export const { "fetch/fulfilled": setAccountData } = slice.actions;
 
 export default slice.reducer;

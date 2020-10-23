@@ -38,7 +38,7 @@ function TransactionList(props: Props) {
         </TableRow>
       </TableHead>
       <TableBody>
-        {transactions.map((data: any) => {
+        {transactions.map((data: TransactionData) => {
           return (
             <Transaction key={data.id} accountById={accountById} data={data} />
           );
@@ -50,7 +50,7 @@ function TransactionList(props: Props) {
 function mapStateToProps(state: RootState) {
   let transactions = Object.values(
     state.transaction.transactionById
-  ).filter((transaction: any) =>
+  ).filter((transaction: TransactionData) =>
     state.currentAccount.selectedId
       ? transaction.accountId == state.currentAccount.selectedId
       : true

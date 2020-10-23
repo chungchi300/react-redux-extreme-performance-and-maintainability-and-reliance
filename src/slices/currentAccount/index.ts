@@ -14,7 +14,7 @@ const slice = createSlice({
   name: "currentAccount",
   initialState,
   reducers: {
-    setCurrentAccountId(state, action: any) {
+    setCurrentAccountId(state, action: PayloadAction<string>) {
       state.selectedId = action.payload;
     },
   },

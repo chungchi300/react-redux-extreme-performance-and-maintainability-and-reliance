@@ -100,7 +100,7 @@ function ModalBankTransferForm(props: Props) {
                     <option key={""} value={""}>
                       Select
                     </option>
-                    {props.accounts.map((account: any) => {
+                    {props.accounts.map((account: AccountData) => {
                       return (
                         <option key={account.id} value={account.id}>
                           {account.name}
@@ -112,7 +112,7 @@ function ModalBankTransferForm(props: Props) {
                     <div>
                       to
                       <Field name="targetAccountId" component="select">
-                        {props.accounts.map((account: any) => {
+                        {props.accounts.map((account: AccountData) => {
                           return (
                             <option
                               disabled={values.sourceAccountId == account.id}
